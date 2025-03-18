@@ -57,7 +57,7 @@ Open http://127.0.0.1:5000/ in your browser.
 -🔹 Interactive UI: Web-based form for easy usage.
 -🔹 Cryptographic Security: Uses DSA, SHA-256, and DSS (FIPS-186-3).
 
-###🛡️ How It Works
+##🛡️ How It Works
 -1️⃣ User inputs a message.
 -2️⃣ SHA-256 hashes the message.
 -3️⃣ Private Key signs the hash.
