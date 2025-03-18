@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Signature System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>Digital Signature System</h2>
+
+        <textarea id="message" placeholder="Enter your message here..."></textarea>
+        <button onclick="signMessage()">Sign Message</button>
+
+        <h3>Generated Signature:</h3>
+        <textarea id="signature" readonly></textarea>
+
+        <button onclick="verifySignature()">Verify Signature</button>
+        <h3 id="verification-status"></h3>
+    </div>
+
+    <script>
+        function signMessage() {
+            let message = document.getElementById("message").value;
+
+            fetch('/sign', {
+                method: 'POST',
+                body: new URLSearchParams({'message': message}),
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    alert("Error: " + data.error);
+                } else {
+                    document.getElementById("signature").value = data.signature;
+                    alert("Message Signed Successfully!");
+                }
+            });
+        }
+
+        function verifySignature() {
+            let message = document.getElementById("message").value;
+            let signature = document.getElementById("signature").value;
+
+            fetch('/verify', {
+                method: 'POST',
+                body: new URLSearchParams({'message': message, 'signature': signature}),
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("verification-status").innerText = data.status;
+            });
+        }
+    </script>
+</body>
+</html>
