@@ -28,9 +28,9 @@ digital_signature_project/
 │── app.py                 # Flask Backend (DSA Implementation)
 │── requirements.txt       # Dependencies
 │── README.md              # Project Documentation
+```
 
 
----
 
 ## ⚙️ Installation & Setup
 
@@ -39,15 +39,15 @@ digital_signature_project/
 ```sh
 git clone https://github.com/your-username/digital-signature-project.git
 cd digital-signature-project
-
+```
 ###2️⃣ Install Dependencies
 ```sh
 pip install -r requirements.txt
-
+```
 ###3️⃣ Run the Application
 ```sh
 python app.py
-
+```
 ###4️⃣ Access the Web App
 Open http://127.0.0.1:5000/ in your browser.
 
