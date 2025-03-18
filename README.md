@@ -52,18 +52,18 @@ python app.py
 Open http://127.0.0.1:5000/ in your browser.
 
 ###📌 Features
-🔹 Sign Messages: Generates a unique signature for any input message.
-🔹 Verify Signatures: Ensures the message is authentic and untampered.
-🔹 Interactive UI: Web-based form for easy usage.
-🔹 Cryptographic Security: Uses DSA, SHA-256, and DSS (FIPS-186-3).
+-🔹 Sign Messages: Generates a unique signature for any input message.
+-🔹 Verify Signatures: Ensures the message is authentic and untampered.
+-🔹 Interactive UI: Web-based form for easy usage.
+-🔹 Cryptographic Security: Uses DSA, SHA-256, and DSS (FIPS-186-3).
 
 ###🛡️ How It Works
-1️⃣ User inputs a message.
-2️⃣ SHA-256 hashes the message.
-3️⃣ Private Key signs the hash.
-4️⃣ Signature is displayed.
-5️⃣ User verifies the signature with the Public Key.
-6️⃣ If valid, the message is authenticated.
+-1️⃣ User inputs a message.
+-2️⃣ SHA-256 hashes the message.
+-3️⃣ Private Key signs the hash.
+-4️⃣ Signature is displayed.
+-5️⃣ User verifies the signature with the Public Key.
+-6️⃣ If valid, the message is authenticated.
 
 ###📜 License
 This project is open-source under the MIT License.
