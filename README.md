@@ -37,7 +37,7 @@ digital_signature_project/
 ### 1️⃣ Clone the Repository
 
 ```sh
-git clone https://github.com/your-username/digital-signature-project.git
+git clone https://github.com/Nagendra0228/INS-Project.git
 cd digital-signature-project
 ```
 ###2️⃣ Install Dependencies
