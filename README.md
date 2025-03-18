@@ -40,15 +40,15 @@ digital_signature_project/
 git clone https://github.com/Nagendra0228/INS-Project.git
 cd digital-signature-project
 ```
-###2️⃣ Install Dependencies
+### 2️⃣ Install Dependencies
 ```sh
 pip install -r requirements.txt
 ```
-###3️⃣ Run the Application
+### 3️⃣ Run the Application
 ```sh
 python app.py
 ```
-###4️⃣ Access the Web App
+### 4️⃣ Access the Web App
 Open http://127.0.0.1:5000/ in your browser.
 
 ### 📌 Features:
