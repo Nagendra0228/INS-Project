@@ -1,50 +1,71 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, request, render_template, jsonify
+from Crypto.PublicKey import DSA
 from Crypto.Signature import DSS
 from Crypto.Hash import SHA256
-from Crypto.PublicKey import DSA
-import binascii
+import smtplib
+from email.mime.text import MIMEText
+from dotenv import load_dotenv
+import os
+
+load_dotenv()  # load variables from .env
+
+EMAIL_ADDRESS = os.getenv("EMAIL_ADDRESS")
+EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")
+
 
 app = Flask(__name__)
 
-# Generate DSA Key Pair (Static for now, can be regenerated per session)
+# Key generation
 key = DSA.generate(2048)
-public_key = key.publickey()
+pub_key = key.publickey()
 
 @app.route('/')
 def home():
     return render_template('index.html')
 
-@app.route('/sign', methods=['POST'])
-def sign_message():
-    try:
-        message = request.form['message'].encode()  # Get input message from frontend
-        hash_obj = SHA256.new(message)  # Hash the message
-        signer = DSS.new(key, 'fips-186-3')  
-        signature = signer.sign(hash_obj)  # Generate Signature
-        
-        return jsonify({
-            'message': message.decode(),
-            'hash': hash_obj.hexdigest(),
-            'signature': binascii.hexlify(signature).decode()  # Convert bytes to hex for display
-        })
-    except Exception as e:
-        return jsonify({'error': str(e)})
+@app.route('/generate_signature', methods=['POST'])
+def generate_signature():
+    message = request.form['message'].encode()
+    email = request.form['email']
 
-@app.route('/verify', methods=['POST'])
+    # Create hash and signature
+    h = SHA256.new(message)
+    signer = DSS.new(key, 'fips-186-3')
+    signature = signer.sign(h)
+
+    # Send email
+    send_email(email, message.decode(), signature.hex())
+
+    return jsonify({'signature': signature.hex(), 'message': message.decode()})
+
+@app.route('/verify_signature', methods=['POST'])
 def verify_signature():
+    message = request.form['message'].encode()
+    signature_hex = request.form['signature']
+    signature = bytes.fromhex(signature_hex)
+
+    h = SHA256.new(message)
+    verifier = DSS.new(pub_key, 'fips-186-3')
+
     try:
-        message = request.form['message'].encode()
-        received_signature = binascii.unhexlify(request.form['signature'])  # Convert hex back to bytes
-
-        hash_obj = SHA256.new(message)  
-        verifier = DSS.new(public_key, 'fips-186-3')  
-
-        verifier.verify(hash_obj, received_signature)  # Verify signature
-        return jsonify({'status': '✅ Signature is valid!'})
+        verifier.verify(h, signature)
+        return jsonify({'result': '✅ Signature is valid!'})
     except ValueError:
-        return jsonify({'status': '❌ Signature is invalid!'})
-    except Exception as e:
-        return jsonify({'error': str(e)})
+        return jsonify({'result': '❌ Signature is NOT valid.'})
+
+def send_email(to, message, signature):
+    from_email = EMAIL_ADDRESS
+    password = EMAIL_PASSWORD
+
+    content = f"Message: {message}\nDigital Signature: {signature}"
+    msg = MIMEText(content)
+    msg['Subject'] = "Your Digital Signature"
+    msg['From'] = from_email
+    msg['To'] = to
+
+    with smtplib.SMTP_SSL('smtp.gmail.com', 465) as server:
+        server.login(from_email, password)
+        server.send_message(msg)
 
 if __name__ == '__main__':
     app.run(debug=True)
