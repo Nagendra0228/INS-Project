@@ -1,70 +1,101 @@
-# 🔐 Digital Signature System
+# Flask Email Signature App ✉️🔐
 
-## 📜 Project Overview
-This project implements a **Digital Signature System (DSS)** using **Flask** and **PyCryptodome** to securely authenticate messages. It allows users to:
+A secure and user-friendly Flask web application that allows users to generate cryptographic digital signatures for messages and sends the signed message to a specified email address.
 
-✅ **Generate a Digital Signature** using DSA.  
-✅ **Verify a Signature** to check authenticity.  
-✅ **Use a Web Interface** for ease of use.  
+## 🚀 Features
 
----
+- 🔏 **Digital Signature Generation**: Uses RSA cryptography to generate a secure digital signature for the message.
+- 📧 **Email Integration**: Sends the original message and its signature to the provided email address using SMTP.
+- 🌐 **Web Interface**: Clean and responsive frontend built with HTML and CSS.
+- 🔒 **Environment Variable Security**: Sensitive credentials are managed securely using a `.env` file.
 
-## 🛠️ Tech Stack
+## 🛠️ Technologies Used
 
-- **Backend:** Flask, Python  
-- **Cryptography Library:** PyCryptodome (DSA, SHA-256, DSS)  
-- **Frontend:** HTML, CSS, JavaScript  
-- **Deployment:** Localhost  
-
----
+- **Backend**: Python, Flask
+- **Frontend**: HTML5, CSS3
+- **Security**: RSA (from `cryptography` package)
+- **Email**: SMTP (Simple Mail Transfer Protocol)
 
 ## 📂 Project Structure
+
 ```
-digital_signature_project/
-│── static/
-│   ├── style.css          # Styling for frontend
-│── templates/
-│   ├── index.html         # Webpage UI
-│── app.py                 # Flask Backend (DSA Implementation)
-│── requirements.txt       # Dependencies
-│── README.md              # Project Documentation
+INS Project/
+│
+├── app.py             # Main Flask backend application
+├── .env               # Environment variables (not committed)
+├── templates/
+│   └── index.html     # HTML form for input
+├── static/
+│   └── style.css      # CSS styling
+└── README.md          # Project documentation
 ```
 
+## 🔧 Setup Instructions
 
+### 1. Clone the repository
 
-## ⚙️ Installation & Setup
-
-### 1️⃣ Clone the Repository
-
-```sh
-git clone https://github.com/Nagendra0228/INS-Project.git
-cd digital-signature-project
+```bash
+git clone https://github.com/your-username/flask-email-signer.git
+cd flask-email-signer
 ```
-### 2️⃣ Install Dependencies
-```sh
+
+### 2. Create and activate a virtual environment
+
+```bash
+python -m venv venv
+source venv/bin/activate     # On Linux/Mac
+venv\Scripts\activate      # On Windows
+```
+
+### 3. Install dependencies
+
+```bash
 pip install -r requirements.txt
 ```
-### 3️⃣ Run the Application
-```sh
+
+> If you don’t have `requirements.txt`, run:
+> `pip install flask cryptography python-dotenv`
+
+### 4. Set up environment variables
+
+Create a `.env` file in the root directory with the following:
+
+```env
+EMAIL_ADDRESS=your_email@example.com
+EMAIL_PASSWORD=your_password_or_app_password
+```
+
+> ⚠️ If using Gmail, make sure 2-Step Verification is OFF or use an [App Password](https://support.google.com/accounts/answer/185833?hl=en).
+
+### 5. Run the application
+
+```bash
 python app.py
 ```
-### 4️⃣ Access the Web App
-Open http://127.0.0.1:5000/ in your browser.
 
-### 📌 Features:
- 🔹 **Sign Messages**: Generates a unique signature for any input message.  
- 🔹 **Verify Signatures**: Ensures the message is authentic and untampered.  
- 🔹 **Interactive UI**: Web-based form for easy usage.  
- 🔹 **Cryptographic Security**: Uses DSA, SHA-256, and DSS (FIPS-186-3).  
+Then open your browser and navigate to `http://127.0.0.1:5000/`.
 
-### 🛡️ How It Works:
-1. **User inputs a message**.  
-2. **SHA-256 hashes the message**.  
-3. **Private Key signs the hash**.  
-4. **Signature is displayed**.  
-5. **User verifies the signature with the Public Key**.  
-6. **If valid, the message is authenticated**.  
+## 🧪 Example
 
-### 📜 License:
-- This project is **open-source** under the **MIT License**.  
+1. Enter a message and email address.
+2. Click “Generate Signature”.
+3. Check the email inbox for the signed message and the signature.
 
+## 🛡️ Security Note
+
+- Never commit `.env` files containing sensitive credentials.
+- Always use app passwords or OAuth for production environments.
+
+## 📜 License
+
+This project is open-source and available under the [MIT License](LICENSE).
+
+## 🙌 Acknowledgements
+
+- [Flask](https://flask.palletsprojects.com/)
+- [Cryptography](https://cryptography.io/)
+- [Python Dotenv](https://pypi.org/project/python-dotenv/)
+
+---
+
+Made with ❤️ for secure communication.
