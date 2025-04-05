@@ -23,11 +23,15 @@ INS Project/
 │
 ├── app.py             # Main Flask backend application
 ├── .env               # Environment variables (not committed)
+├── Media/  
+│   └── Demo.mp4       #Demo of the project           
 ├── templates/
 │   └── index.html     # HTML form for input
 ├── static/
 │   └── style.css      # CSS styling
+└── Report.pdf         #Report of the project
 └── README.md          # Project documentation
+ 
 ```
 
 ## 🔧 Setup Instructions
